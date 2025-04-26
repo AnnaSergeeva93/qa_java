@@ -9,6 +9,7 @@ import org.mockito.junit.MockitoJUnitRunner;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LionTest {
@@ -25,32 +26,31 @@ public class LionTest {
 
     @Test
     public void createLionThrowsExceptionTest() {
-        try {
-            Lion lion = new Lion(WRONG_SEX, feline);
-        } catch (Exception exception) {
-            String exceptionText = "Используйте допустимые значения пола животного - самей или самка";
-            assertEquals(exceptionText, exception.getMessage());
-        }
+        Exception exception = assertThrows(Exception.class, () -> new Lion(WRONG_SEX, feline));
+        String exceptionText = "Используйте допустимые значения пола животного - самей или самка";
+
+        assertEquals(exceptionText, exception.getMessage());
     }
 
-    @Test
-    public void getKittensTest() throws Exception {
-        Lion lion = new Lion(FEMALE, feline);
 
-        Mockito.when(feline.getKittens()).thenReturn(expectedKittensCount);
-        int actualKittensCount = lion.getKittens();
+@Test
+public void getKittensTest() throws Exception {
+    Lion lion = new Lion(FEMALE, feline);
 
-        assertEquals("Неверное количество котят", expectedKittensCount, actualKittensCount);
-    }
+    Mockito.when(feline.getKittens()).thenReturn(expectedKittensCount);
+    int actualKittensCount = lion.getKittens();
 
-    @Test
-    public void getFoodTest() throws Exception {
-        Lion lion = new Lion(MALE, feline);
+    assertEquals("Неверное количество котят", expectedKittensCount, actualKittensCount);
+}
 
-        Mockito.when(feline.getFood("Хищник")).thenReturn(expectedListOfFood);
-        List<String> actualListOfFood = lion.getFood();
+@Test
+public void getFoodTest() throws Exception {
+    Lion lion = new Lion(MALE, feline);
 
-        assertEquals("Лев питается не правильно", expectedListOfFood, actualListOfFood);
-    }
+    Mockito.when(feline.getFood("Хищник")).thenReturn(expectedListOfFood);
+    List<String> actualListOfFood = lion.getFood();
+
+    assertEquals("Лев питается не правильно", expectedListOfFood, actualListOfFood);
+}
 
 }
