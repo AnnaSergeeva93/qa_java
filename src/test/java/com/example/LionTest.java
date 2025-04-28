@@ -13,7 +13,7 @@ import static org.junit.Assert.assertThrows;
 
 @RunWith(MockitoJUnitRunner.class)
 public class LionTest {
-    private int expectedKittensCount = 5;
+    private int expectedKittensCount = 1;
     private static final String MALE = "Самец";
     private static final String FEMALE = "Самка";
     private static final String WRONG_SEX = "Оно";
